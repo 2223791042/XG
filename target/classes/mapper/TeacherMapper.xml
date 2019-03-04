@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mr.s.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="mr.s.entity.Teacher">
+    <id column="TeacherID" jdbcType="VARCHAR" property="teacherID" />
+    <result column="TeaName" jdbcType="VARCHAR" property="teaName" />
+    <result column="NamePinyin" jdbcType="VARCHAR" property="namePinyin" />
+    <result column="OldName" jdbcType="VARCHAR" property="oldName" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="Health" jdbcType="VARCHAR" property="health" />
+    <result column="Birthday" jdbcType="DATE" property="birthday" />
+    <result column="OriginAdd" jdbcType="VARCHAR" property="originAdd" />
+    <result column="Nation" jdbcType="VARCHAR" property="nation" />
+    <result column="Political" jdbcType="VARCHAR" property="political" />
+    <result column="CertType" jdbcType="VARCHAR" property="certType" />
+    <result column="CertID" jdbcType="VARCHAR" property="certID" />
+    <result column="Graduate" jdbcType="VARCHAR" property="graduate" />
+    <result column="GraTime" jdbcType="DATE" property="graTime" />
+    <result column="Diploma" jdbcType="VARCHAR" property="diploma" />
+    <result column="DipTime" jdbcType="DATE" property="dipTime" />
+    <result column="GraSchool" jdbcType="VARCHAR" property="graSchool" />
+    <result column="Major" jdbcType="VARCHAR" property="major" />
+    <result column="Position" jdbcType="VARCHAR" property="position" />
+    <result column="PosTime" jdbcType="DATE" property="posTime" />
+    <result column="Officer" jdbcType="VARCHAR" property="officer" />
+    <result column="OffTime" jdbcType="DATE" property="offTime" />
+    <result column="SchPost" jdbcType="VARCHAR" property="schPost" />
+    <result column="PerStatus" jdbcType="VARCHAR" property="perStatus" />
+    <result column="IsTeaCert" jdbcType="VARCHAR" property="isTeaCert" />
+    <result column="TeaCert" jdbcType="VARCHAR" property="teaCert" />
+    <result column="CurrMajor" jdbcType="VARCHAR" property="currMajor" />
+    <result column="InstBelong" jdbcType="VARCHAR" property="instBelong" />
+    <result column="ContactAdd" jdbcType="VARCHAR" property="contactAdd" />
+    <result column="ContactZip" jdbcType="VARCHAR" property="contactZip" />
+    <result column="TelePhone" jdbcType="VARCHAR" property="telePhone" />
+    <result column="QQID" jdbcType="VARCHAR" property="QQID" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="HomeAdd" jdbcType="VARCHAR" property="homeAdd" />
+    <result column="HomeZip" jdbcType="VARCHAR" property="homeZip" />
+    <result column="RegAdd" jdbcType="VARCHAR" property="regAdd" />
+    <result column="RegType" jdbcType="VARCHAR" property="regType" />
+    <result column="Marry" jdbcType="VARCHAR" property="marry" />
+    <result column="ComeTime" jdbcType="DATE" property="comeTime" />
+    <result column="WorkTime" jdbcType="DATE" property="workTime" />
+    <result column="TeachTime" jdbcType="DATE" property="teachTime" />
+    <result column="Belief" jdbcType="VARCHAR" property="belief" />
+    <result column="Overseas" jdbcType="VARCHAR" property="overseas" />
+    <result column="Hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="Research" jdbcType="VARCHAR" property="research" />
+    <result column="PerProfile" jdbcType="VARCHAR" property="perProfile" />
+    <result column="Memo" jdbcType="VARCHAR" property="memo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TeacherID, TeaName, NamePinyin, OldName, Sex, Health, Birthday, OriginAdd, Nation, 
+    Political, CertType, CertID, Graduate, GraTime, Diploma, DipTime, GraSchool, Major, 
+    Position, PosTime, Officer, OffTime, SchPost, PerStatus, IsTeaCert, TeaCert, CurrMajor, 
+    InstBelong, ContactAdd, ContactZip, TelePhone, QQID, Email, HomeAdd, HomeZip, RegAdd, 
+    RegType, Marry, ComeTime, WorkTime, TeachTime, Belief, Overseas, Hobby, Research, 
+    PerProfile, Memo
+  </sql>
+  <select id="selectByExample" parameterType="mr.s.entity.TeacherExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where TeacherID = #{teacherID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from teacher
+    where TeacherID = #{teacherID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="mr.s.entity.TeacherExample">
+    delete from teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mr.s.entity.Teacher">
+    insert into teacher (TeacherID, TeaName, NamePinyin, 
+      OldName, Sex, Health, 
+      Birthday, OriginAdd, Nation, 
+      Political, CertType, CertID, 
+      Graduate, GraTime, Diploma, 
+      DipTime, GraSchool, Major, 
+      Position, PosTime, Officer, 
+      OffTime, SchPost, PerStatus, 
+      IsTeaCert, TeaCert, CurrMajor, 
+      InstBelong, ContactAdd, ContactZip, 
+      TelePhone, QQID, Email, 
+      HomeAdd, HomeZip, RegAdd, 
+      RegType, Marry, ComeTime, 
+      WorkTime, TeachTime, Belief, 
+      Overseas, Hobby, Research, 
+      PerProfile, Memo)
+    values (#{teacherID,jdbcType=VARCHAR}, #{teaName,jdbcType=VARCHAR}, #{namePinyin,jdbcType=VARCHAR}, 
+      #{oldName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{health,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{originAdd,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{political,jdbcType=VARCHAR}, #{certType,jdbcType=VARCHAR}, #{certID,jdbcType=VARCHAR}, 
+      #{graduate,jdbcType=VARCHAR}, #{graTime,jdbcType=DATE}, #{diploma,jdbcType=VARCHAR}, 
+      #{dipTime,jdbcType=DATE}, #{graSchool,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{posTime,jdbcType=DATE}, #{officer,jdbcType=VARCHAR}, 
+      #{offTime,jdbcType=DATE}, #{schPost,jdbcType=VARCHAR}, #{perStatus,jdbcType=VARCHAR}, 
+      #{isTeaCert,jdbcType=VARCHAR}, #{teaCert,jdbcType=VARCHAR}, #{currMajor,jdbcType=VARCHAR}, 
+      #{instBelong,jdbcType=VARCHAR}, #{contactAdd,jdbcType=VARCHAR}, #{contactZip,jdbcType=VARCHAR}, 
+      #{telePhone,jdbcType=VARCHAR}, #{QQID,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{homeAdd,jdbcType=VARCHAR}, #{homeZip,jdbcType=VARCHAR}, #{regAdd,jdbcType=VARCHAR}, 
+      #{regType,jdbcType=VARCHAR}, #{marry,jdbcType=VARCHAR}, #{comeTime,jdbcType=DATE}, 
+      #{workTime,jdbcType=DATE}, #{teachTime,jdbcType=DATE}, #{belief,jdbcType=VARCHAR}, 
+      #{overseas,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, #{research,jdbcType=VARCHAR}, 
+      #{perProfile,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mr.s.entity.Teacher">
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teacherID != null">
+        TeacherID,
+      </if>
+      <if test="teaName != null">
+        TeaName,
+      </if>
+      <if test="namePinyin != null">
+        NamePinyin,
+      </if>
+      <if test="oldName != null">
+        OldName,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="health != null">
+        Health,
+      </if>
+      <if test="birthday != null">
+        Birthday,
+      </if>
+      <if test="originAdd != null">
+        OriginAdd,
+      </if>
+      <if test="nation != null">
+        Nation,
+      </if>
+      <if test="political != null">
+        Political,
+      </if>
+      <if test="certType != null">
+        CertType,
+      </if>
+      <if test="certID != null">
+        CertID,
+      </if>
+      <if test="graduate != null">
+        Graduate,
+      </if>
+      <if test="graTime != null">
+        GraTime,
+      </if>
+      <if test="diploma != null">
+        Diploma,
+      </if>
+      <if test="dipTime != null">
+        DipTime,
+      </if>
+      <if test="graSchool != null">
+        GraSchool,
+      </if>
+      <if test="major != null">
+        Major,
+      </if>
+      <if test="position != null">
+        Position,
+      </if>
+      <if test="posTime != null">
+        PosTime,
+      </if>
+      <if test="officer != null">
+        Officer,
+      </if>
+      <if test="offTime != null">
+        OffTime,
+      </if>
+      <if test="schPost != null">
+        SchPost,
+      </if>
+      <if test="perStatus != null">
+        PerStatus,
+      </if>
+      <if test="isTeaCert != null">
+        IsTeaCert,
+      </if>
+      <if test="teaCert != null">
+        TeaCert,
+      </if>
+      <if test="currMajor != null">
+        CurrMajor,
+      </if>
+      <if test="instBelong != null">
+        InstBelong,
+      </if>
+      <if test="contactAdd != null">
+        ContactAdd,
+      </if>
+      <if test="contactZip != null">
+        ContactZip,
+      </if>
+      <if test="telePhone != null">
+        TelePhone,
+      </if>
+      <if test="QQID != null">
+        QQID,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="homeAdd != null">
+        HomeAdd,
+      </if>
+      <if test="homeZip != null">
+        HomeZip,
+      </if>
+      <if test="regAdd != null">
+        RegAdd,
+      </if>
+      <if test="regType != null">
+        RegType,
+      </if>
+      <if test="marry != null">
+        Marry,
+      </if>
+      <if test="comeTime != null">
+        ComeTime,
+      </if>
+      <if test="workTime != null">
+        WorkTime,
+      </if>
+      <if test="teachTime != null">
+        TeachTime,
+      </if>
+      <if test="belief != null">
+        Belief,
+      </if>
+      <if test="overseas != null">
+        Overseas,
+      </if>
+      <if test="hobby != null">
+        Hobby,
+      </if>
+      <if test="research != null">
+        Research,
+      </if>
+      <if test="perProfile != null">
+        PerProfile,
+      </if>
+      <if test="memo != null">
+        Memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teacherID != null">
+        #{teacherID,jdbcType=VARCHAR},
+      </if>
+      <if test="teaName != null">
+        #{teaName,jdbcType=VARCHAR},
+      </if>
+      <if test="namePinyin != null">
+        #{namePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="oldName != null">
+        #{oldName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null">
+        #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="originAdd != null">
+        #{originAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="political != null">
+        #{political,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null">
+        #{certType,jdbcType=VARCHAR},
+      </if>
+      <if test="certID != null">
+        #{certID,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null">
+        #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="graTime != null">
+        #{graTime,jdbcType=DATE},
+      </if>
+      <if test="diploma != null">
+        #{diploma,jdbcType=VARCHAR},
+      </if>
+      <if test="dipTime != null">
+        #{dipTime,jdbcType=DATE},
+      </if>
+      <if test="graSchool != null">
+        #{graSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="posTime != null">
+        #{posTime,jdbcType=DATE},
+      </if>
+      <if test="officer != null">
+        #{officer,jdbcType=VARCHAR},
+      </if>
+      <if test="offTime != null">
+        #{offTime,jdbcType=DATE},
+      </if>
+      <if test="schPost != null">
+        #{schPost,jdbcType=VARCHAR},
+      </if>
+      <if test="perStatus != null">
+        #{perStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isTeaCert != null">
+        #{isTeaCert,jdbcType=VARCHAR},
+      </if>
+      <if test="teaCert != null">
+        #{teaCert,jdbcType=VARCHAR},
+      </if>
+      <if test="currMajor != null">
+        #{currMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="instBelong != null">
+        #{instBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAdd != null">
+        #{contactAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="contactZip != null">
+        #{contactZip,jdbcType=VARCHAR},
+      </if>
+      <if test="telePhone != null">
+        #{telePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="QQID != null">
+        #{QQID,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAdd != null">
+        #{homeAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="homeZip != null">
+        #{homeZip,jdbcType=VARCHAR},
+      </if>
+      <if test="regAdd != null">
+        #{regAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="regType != null">
+        #{regType,jdbcType=VARCHAR},
+      </if>
+      <if test="marry != null">
+        #{marry,jdbcType=VARCHAR},
+      </if>
+      <if test="comeTime != null">
+        #{comeTime,jdbcType=DATE},
+      </if>
+      <if test="workTime != null">
+        #{workTime,jdbcType=DATE},
+      </if>
+      <if test="teachTime != null">
+        #{teachTime,jdbcType=DATE},
+      </if>
+      <if test="belief != null">
+        #{belief,jdbcType=VARCHAR},
+      </if>
+      <if test="overseas != null">
+        #{overseas,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="research != null">
+        #{research,jdbcType=VARCHAR},
+      </if>
+      <if test="perProfile != null">
+        #{perProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mr.s.entity.TeacherExample" resultType="java.lang.Long">
+    select count(*) from teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update teacher
+    <set>
+      <if test="record.teacherID != null">
+        TeacherID = #{record.teacherID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teaName != null">
+        TeaName = #{record.teaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.namePinyin != null">
+        NamePinyin = #{record.namePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oldName != null">
+        OldName = #{record.oldName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        Sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.health != null">
+        Health = #{record.health,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null">
+        Birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+      <if test="record.originAdd != null">
+        OriginAdd = #{record.originAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null">
+        Nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.political != null">
+        Political = #{record.political,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certType != null">
+        CertType = #{record.certType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certID != null">
+        CertID = #{record.certID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graduate != null">
+        Graduate = #{record.graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graTime != null">
+        GraTime = #{record.graTime,jdbcType=DATE},
+      </if>
+      <if test="record.diploma != null">
+        Diploma = #{record.diploma,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dipTime != null">
+        DipTime = #{record.dipTime,jdbcType=DATE},
+      </if>
+      <if test="record.graSchool != null">
+        GraSchool = #{record.graSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null">
+        Major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null">
+        Position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.posTime != null">
+        PosTime = #{record.posTime,jdbcType=DATE},
+      </if>
+      <if test="record.officer != null">
+        Officer = #{record.officer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offTime != null">
+        OffTime = #{record.offTime,jdbcType=DATE},
+      </if>
+      <if test="record.schPost != null">
+        SchPost = #{record.schPost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perStatus != null">
+        PerStatus = #{record.perStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTeaCert != null">
+        IsTeaCert = #{record.isTeaCert,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teaCert != null">
+        TeaCert = #{record.teaCert,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currMajor != null">
+        CurrMajor = #{record.currMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instBelong != null">
+        InstBelong = #{record.instBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactAdd != null">
+        ContactAdd = #{record.contactAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactZip != null">
+        ContactZip = #{record.contactZip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telePhone != null">
+        TelePhone = #{record.telePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.QQID != null">
+        QQID = #{record.QQID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeAdd != null">
+        HomeAdd = #{record.homeAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeZip != null">
+        HomeZip = #{record.homeZip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regAdd != null">
+        RegAdd = #{record.regAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regType != null">
+        RegType = #{record.regType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marry != null">
+        Marry = #{record.marry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comeTime != null">
+        ComeTime = #{record.comeTime,jdbcType=DATE},
+      </if>
+      <if test="record.workTime != null">
+        WorkTime = #{record.workTime,jdbcType=DATE},
+      </if>
+      <if test="record.teachTime != null">
+        TeachTime = #{record.teachTime,jdbcType=DATE},
+      </if>
+      <if test="record.belief != null">
+        Belief = #{record.belief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overseas != null">
+        Overseas = #{record.overseas,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hobby != null">
+        Hobby = #{record.hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.research != null">
+        Research = #{record.research,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perProfile != null">
+        PerProfile = #{record.perProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null">
+        Memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update teacher
+    set TeacherID = #{record.teacherID,jdbcType=VARCHAR},
+      TeaName = #{record.teaName,jdbcType=VARCHAR},
+      NamePinyin = #{record.namePinyin,jdbcType=VARCHAR},
+      OldName = #{record.oldName,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=VARCHAR},
+      Health = #{record.health,jdbcType=VARCHAR},
+      Birthday = #{record.birthday,jdbcType=DATE},
+      OriginAdd = #{record.originAdd,jdbcType=VARCHAR},
+      Nation = #{record.nation,jdbcType=VARCHAR},
+      Political = #{record.political,jdbcType=VARCHAR},
+      CertType = #{record.certType,jdbcType=VARCHAR},
+      CertID = #{record.certID,jdbcType=VARCHAR},
+      Graduate = #{record.graduate,jdbcType=VARCHAR},
+      GraTime = #{record.graTime,jdbcType=DATE},
+      Diploma = #{record.diploma,jdbcType=VARCHAR},
+      DipTime = #{record.dipTime,jdbcType=DATE},
+      GraSchool = #{record.graSchool,jdbcType=VARCHAR},
+      Major = #{record.major,jdbcType=VARCHAR},
+      Position = #{record.position,jdbcType=VARCHAR},
+      PosTime = #{record.posTime,jdbcType=DATE},
+      Officer = #{record.officer,jdbcType=VARCHAR},
+      OffTime = #{record.offTime,jdbcType=DATE},
+      SchPost = #{record.schPost,jdbcType=VARCHAR},
+      PerStatus = #{record.perStatus,jdbcType=VARCHAR},
+      IsTeaCert = #{record.isTeaCert,jdbcType=VARCHAR},
+      TeaCert = #{record.teaCert,jdbcType=VARCHAR},
+      CurrMajor = #{record.currMajor,jdbcType=VARCHAR},
+      InstBelong = #{record.instBelong,jdbcType=VARCHAR},
+      ContactAdd = #{record.contactAdd,jdbcType=VARCHAR},
+      ContactZip = #{record.contactZip,jdbcType=VARCHAR},
+      TelePhone = #{record.telePhone,jdbcType=VARCHAR},
+      QQID = #{record.QQID,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      HomeAdd = #{record.homeAdd,jdbcType=VARCHAR},
+      HomeZip = #{record.homeZip,jdbcType=VARCHAR},
+      RegAdd = #{record.regAdd,jdbcType=VARCHAR},
+      RegType = #{record.regType,jdbcType=VARCHAR},
+      Marry = #{record.marry,jdbcType=VARCHAR},
+      ComeTime = #{record.comeTime,jdbcType=DATE},
+      WorkTime = #{record.workTime,jdbcType=DATE},
+      TeachTime = #{record.teachTime,jdbcType=DATE},
+      Belief = #{record.belief,jdbcType=VARCHAR},
+      Overseas = #{record.overseas,jdbcType=VARCHAR},
+      Hobby = #{record.hobby,jdbcType=VARCHAR},
+      Research = #{record.research,jdbcType=VARCHAR},
+      PerProfile = #{record.perProfile,jdbcType=VARCHAR},
+      Memo = #{record.memo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mr.s.entity.Teacher">
+    update teacher
+    <set>
+      <if test="teaName != null">
+        TeaName = #{teaName,jdbcType=VARCHAR},
+      </if>
+      <if test="namePinyin != null">
+        NamePinyin = #{namePinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="oldName != null">
+        OldName = #{oldName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="health != null">
+        Health = #{health,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        Birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="originAdd != null">
+        OriginAdd = #{originAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        Nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="political != null">
+        Political = #{political,jdbcType=VARCHAR},
+      </if>
+      <if test="certType != null">
+        CertType = #{certType,jdbcType=VARCHAR},
+      </if>
+      <if test="certID != null">
+        CertID = #{certID,jdbcType=VARCHAR},
+      </if>
+      <if test="graduate != null">
+        Graduate = #{graduate,jdbcType=VARCHAR},
+      </if>
+      <if test="graTime != null">
+        GraTime = #{graTime,jdbcType=DATE},
+      </if>
+      <if test="diploma != null">
+        Diploma = #{diploma,jdbcType=VARCHAR},
+      </if>
+      <if test="dipTime != null">
+        DipTime = #{dipTime,jdbcType=DATE},
+      </if>
+      <if test="graSchool != null">
+        GraSchool = #{graSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        Major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        Position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="posTime != null">
+        PosTime = #{posTime,jdbcType=DATE},
+      </if>
+      <if test="officer != null">
+        Officer = #{officer,jdbcType=VARCHAR},
+      </if>
+      <if test="offTime != null">
+        OffTime = #{offTime,jdbcType=DATE},
+      </if>
+      <if test="schPost != null">
+        SchPost = #{schPost,jdbcType=VARCHAR},
+      </if>
+      <if test="perStatus != null">
+        PerStatus = #{perStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isTeaCert != null">
+        IsTeaCert = #{isTeaCert,jdbcType=VARCHAR},
+      </if>
+      <if test="teaCert != null">
+        TeaCert = #{teaCert,jdbcType=VARCHAR},
+      </if>
+      <if test="currMajor != null">
+        CurrMajor = #{currMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="instBelong != null">
+        InstBelong = #{instBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAdd != null">
+        ContactAdd = #{contactAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="contactZip != null">
+        ContactZip = #{contactZip,jdbcType=VARCHAR},
+      </if>
+      <if test="telePhone != null">
+        TelePhone = #{telePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="QQID != null">
+        QQID = #{QQID,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="homeAdd != null">
+        HomeAdd = #{homeAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="homeZip != null">
+        HomeZip = #{homeZip,jdbcType=VARCHAR},
+      </if>
+      <if test="regAdd != null">
+        RegAdd = #{regAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="regType != null">
+        RegType = #{regType,jdbcType=VARCHAR},
+      </if>
+      <if test="marry != null">
+        Marry = #{marry,jdbcType=VARCHAR},
+      </if>
+      <if test="comeTime != null">
+        ComeTime = #{comeTime,jdbcType=DATE},
+      </if>
+      <if test="workTime != null">
+        WorkTime = #{workTime,jdbcType=DATE},
+      </if>
+      <if test="teachTime != null">
+        TeachTime = #{teachTime,jdbcType=DATE},
+      </if>
+      <if test="belief != null">
+        Belief = #{belief,jdbcType=VARCHAR},
+      </if>
+      <if test="overseas != null">
+        Overseas = #{overseas,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        Hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="research != null">
+        Research = #{research,jdbcType=VARCHAR},
+      </if>
+      <if test="perProfile != null">
+        PerProfile = #{perProfile,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        Memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TeacherID = #{teacherID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mr.s.entity.Teacher">
+    update teacher
+    set TeaName = #{teaName,jdbcType=VARCHAR},
+      NamePinyin = #{namePinyin,jdbcType=VARCHAR},
+      OldName = #{oldName,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Health = #{health,jdbcType=VARCHAR},
+      Birthday = #{birthday,jdbcType=DATE},
+      OriginAdd = #{originAdd,jdbcType=VARCHAR},
+      Nation = #{nation,jdbcType=VARCHAR},
+      Political = #{political,jdbcType=VARCHAR},
+      CertType = #{certType,jdbcType=VARCHAR},
+      CertID = #{certID,jdbcType=VARCHAR},
+      Graduate = #{graduate,jdbcType=VARCHAR},
+      GraTime = #{graTime,jdbcType=DATE},
+      Diploma = #{diploma,jdbcType=VARCHAR},
+      DipTime = #{dipTime,jdbcType=DATE},
+      GraSchool = #{graSchool,jdbcType=VARCHAR},
+      Major = #{major,jdbcType=VARCHAR},
+      Position = #{position,jdbcType=VARCHAR},
+      PosTime = #{posTime,jdbcType=DATE},
+      Officer = #{officer,jdbcType=VARCHAR},
+      OffTime = #{offTime,jdbcType=DATE},
+      SchPost = #{schPost,jdbcType=VARCHAR},
+      PerStatus = #{perStatus,jdbcType=VARCHAR},
+      IsTeaCert = #{isTeaCert,jdbcType=VARCHAR},
+      TeaCert = #{teaCert,jdbcType=VARCHAR},
+      CurrMajor = #{currMajor,jdbcType=VARCHAR},
+      InstBelong = #{instBelong,jdbcType=VARCHAR},
+      ContactAdd = #{contactAdd,jdbcType=VARCHAR},
+      ContactZip = #{contactZip,jdbcType=VARCHAR},
+      TelePhone = #{telePhone,jdbcType=VARCHAR},
+      QQID = #{QQID,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      HomeAdd = #{homeAdd,jdbcType=VARCHAR},
+      HomeZip = #{homeZip,jdbcType=VARCHAR},
+      RegAdd = #{regAdd,jdbcType=VARCHAR},
+      RegType = #{regType,jdbcType=VARCHAR},
+      Marry = #{marry,jdbcType=VARCHAR},
+      ComeTime = #{comeTime,jdbcType=DATE},
+      WorkTime = #{workTime,jdbcType=DATE},
+      TeachTime = #{teachTime,jdbcType=DATE},
+      Belief = #{belief,jdbcType=VARCHAR},
+      Overseas = #{overseas,jdbcType=VARCHAR},
+      Hobby = #{hobby,jdbcType=VARCHAR},
+      Research = #{research,jdbcType=VARCHAR},
+      PerProfile = #{perProfile,jdbcType=VARCHAR},
+      Memo = #{memo,jdbcType=VARCHAR}
+    where TeacherID = #{teacherID,jdbcType=VARCHAR}
+  </update>
+</mapper>

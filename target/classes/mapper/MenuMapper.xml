@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mr.s.dao.MenuMapper">
+  <resultMap id="BaseResultMap" type="mr.s.entity.Menu">
+    <id column="MenuId" jdbcType="BIGINT" property="menuId" />
+    <result column="MenuName" jdbcType="VARCHAR" property="menuName" />
+    <result column="MenuOrder" jdbcType="INTEGER" property="menuOrder" />
+    <result column="MenuLevel" jdbcType="INTEGER" property="menuLevel" />
+    <result column="ParentId" jdbcType="INTEGER" property="parentId" />
+    <result column="MenuLink" jdbcType="VARCHAR" property="menuLink" />
+    <result column="MenuType" jdbcType="VARCHAR" property="menuType" />
+    <result column="PermissionId" jdbcType="BIGINT" property="permissionId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MenuId, MenuName, MenuOrder, MenuLevel, ParentId, MenuLink, MenuType, PermissionId
+  </sql>
+  <select id="selectMenuList" parameterType="mr.s.param.MenuParam" resultMap="BaseResultMap">
+    <if test="menuLevel == 1">
+      select * from menu where MenuLevel = #{menuLevel, jdbcType=INTEGER} order by MenuOrder
+    </if>
+    <if test="menuLevel > 1">
+      select menu.* from user_role, role_permission, menu
+      where user_role.UserId = #{userId, jdbcType=BIGINT}
+      and user_role.RoleId = role_permission.RoleId
+      and role_permission.PermissionId = menu.PermissionId
+      and menu.MenuLevel = #{menuLevel, jdbcType=INTEGER} order by MenuOrder
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="mr.s.entity.MenuExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where MenuId = #{menuId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from menu
+    where MenuId = #{menuId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="mr.s.entity.MenuExample">
+    delete from menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mr.s.entity.Menu">
+    insert into menu (MenuId, MenuName, MenuOrder, 
+      MenuLevel, ParentId, MenuLink, 
+      MenuType, PermissionId)
+    values (#{menuId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{menuOrder,jdbcType=INTEGER}, 
+      #{menuLevel,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{menuLink,jdbcType=VARCHAR}, 
+      #{menuType,jdbcType=VARCHAR}, #{permissionId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="mr.s.entity.Menu">
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        MenuId,
+      </if>
+      <if test="menuName != null">
+        MenuName,
+      </if>
+      <if test="menuOrder != null">
+        MenuOrder,
+      </if>
+      <if test="menuLevel != null">
+        MenuLevel,
+      </if>
+      <if test="parentId != null">
+        ParentId,
+      </if>
+      <if test="menuLink != null">
+        MenuLink,
+      </if>
+      <if test="menuType != null">
+        MenuType,
+      </if>
+      <if test="permissionId != null">
+        PermissionId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null">
+        #{menuOrder,jdbcType=INTEGER},
+      </if>
+      <if test="menuLevel != null">
+        #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuLink != null">
+        #{menuLink,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mr.s.entity.MenuExample" resultType="java.lang.Long">
+    select count(*) from menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update menu
+    <set>
+      <if test="record.menuId != null">
+        MenuId = #{record.menuId,jdbcType=BIGINT},
+      </if>
+      <if test="record.menuName != null">
+        MenuName = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuOrder != null">
+        MenuOrder = #{record.menuOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuLevel != null">
+        MenuLevel = #{record.menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null">
+        ParentId = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.menuLink != null">
+        MenuLink = #{record.menuLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuType != null">
+        MenuType = #{record.menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionId != null">
+        PermissionId = #{record.permissionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update menu
+    set MenuId = #{record.menuId,jdbcType=BIGINT},
+      MenuName = #{record.menuName,jdbcType=VARCHAR},
+      MenuOrder = #{record.menuOrder,jdbcType=INTEGER},
+      MenuLevel = #{record.menuLevel,jdbcType=INTEGER},
+      ParentId = #{record.parentId,jdbcType=INTEGER},
+      MenuLink = #{record.menuLink,jdbcType=VARCHAR},
+      MenuType = #{record.menuType,jdbcType=VARCHAR},
+      PermissionId = #{record.permissionId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mr.s.entity.Menu">
+    update menu
+    <set>
+      <if test="menuName != null">
+        MenuName = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuOrder != null">
+        MenuOrder = #{menuOrder,jdbcType=INTEGER},
+      </if>
+      <if test="menuLevel != null">
+        MenuLevel = #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        ParentId = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuLink != null">
+        MenuLink = #{menuLink,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        MenuType = #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionId != null">
+        PermissionId = #{permissionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where MenuId = #{menuId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mr.s.entity.Menu">
+    update menu
+    set MenuName = #{menuName,jdbcType=VARCHAR},
+      MenuOrder = #{menuOrder,jdbcType=INTEGER},
+      MenuLevel = #{menuLevel,jdbcType=INTEGER},
+      ParentId = #{parentId,jdbcType=INTEGER},
+      MenuLink = #{menuLink,jdbcType=VARCHAR},
+      MenuType = #{menuType,jdbcType=VARCHAR},
+      PermissionId = #{permissionId,jdbcType=BIGINT}
+    where MenuId = #{menuId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mr.s.dao.InquiryStudentMapper">
+  <resultMap id="BaseResultMap" type="mr.s.entity.InquiryStudent">
+    <id column="StuID" jdbcType="VARCHAR" property="stuID" />
+    <result column="Registered" jdbcType="VARCHAR" property="registered" />
+    <result column="PersonNum" jdbcType="INTEGER" property="personNum" />
+    <result column="HomeType" jdbcType="VARCHAR" property="homeType" />
+    <result column="HomeIncome" jdbcType="REAL" property="homeIncome" />
+    <result column="Support" jdbcType="VARCHAR" property="support" />
+    <result column="Accident" jdbcType="VARCHAR" property="accident" />
+    <result column="Unemploy" jdbcType="VARCHAR" property="unemploy" />
+    <result column="Debt" jdbcType="VARCHAR" property="debt" />
+    <result column="Other" jdbcType="VARCHAR" property="other" />
+    <result column="StudentSign" jdbcType="VARCHAR" property="studentSign" />
+    <result column="ParentSign" jdbcType="VARCHAR" property="parentSign" />
+    <result column="ParentDate" jdbcType="DATE" property="parentDate" />
+    <result column="AgentSign" jdbcType="VARCHAR" property="agentSign" />
+    <result column="AgentUnit" jdbcType="VARCHAR" property="agentUnit" />
+    <result column="AgentTel" jdbcType="VARCHAR" property="agentTel" />
+    <result column="Seal" jdbcType="VARCHAR" property="seal" />
+    <result column="AgentDate" jdbcType="DATE" property="agentDate" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
+    <result column="Auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="AuditorTime" jdbcType="DATE" property="auditorTime" />
+    <result column="Returned" jdbcType="VARCHAR" property="returned" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    StuID, Registered, PersonNum, HomeType, HomeIncome, Support, Accident, Unemploy, 
+    Debt, Other, StudentSign, ParentSign, ParentDate, AgentSign, AgentUnit, AgentTel, 
+    Seal, AgentDate, Status, Auditor, AuditorTime, Returned
+  </sql>
+  <select id="selectByExample" parameterType="mr.s.entity.InquiryStudentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inquiry_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inquiry_student
+    where StuID = #{stuID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from inquiry_student
+    where StuID = #{stuID,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="mr.s.entity.InquiryStudentExample">
+    delete from inquiry_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mr.s.entity.InquiryStudent">
+    insert into inquiry_student (StuID, Registered, PersonNum, 
+      HomeType, HomeIncome, Support, 
+      Accident, Unemploy, Debt, 
+      Other, StudentSign, ParentSign, 
+      ParentDate, AgentSign, AgentUnit, 
+      AgentTel, Seal, AgentDate, 
+      Status, Auditor, AuditorTime, 
+      Returned)
+    values (#{stuID,jdbcType=VARCHAR}, #{registered,jdbcType=VARCHAR}, #{personNum,jdbcType=INTEGER}, 
+      #{homeType,jdbcType=VARCHAR}, #{homeIncome,jdbcType=REAL}, #{support,jdbcType=VARCHAR}, 
+      #{accident,jdbcType=VARCHAR}, #{unemploy,jdbcType=VARCHAR}, #{debt,jdbcType=VARCHAR}, 
+      #{other,jdbcType=VARCHAR}, #{studentSign,jdbcType=VARCHAR}, #{parentSign,jdbcType=VARCHAR}, 
+      #{parentDate,jdbcType=DATE}, #{agentSign,jdbcType=VARCHAR}, #{agentUnit,jdbcType=VARCHAR}, 
+      #{agentTel,jdbcType=VARCHAR}, #{seal,jdbcType=VARCHAR}, #{agentDate,jdbcType=DATE}, 
+      #{status,jdbcType=VARCHAR}, #{auditor,jdbcType=VARCHAR}, #{auditorTime,jdbcType=DATE}, 
+      #{returned,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mr.s.entity.InquiryStudent">
+    insert into inquiry_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuID != null">
+        StuID,
+      </if>
+      <if test="registered != null">
+        Registered,
+      </if>
+      <if test="personNum != null">
+        PersonNum,
+      </if>
+      <if test="homeType != null">
+        HomeType,
+      </if>
+      <if test="homeIncome != null">
+        HomeIncome,
+      </if>
+      <if test="support != null">
+        Support,
+      </if>
+      <if test="accident != null">
+        Accident,
+      </if>
+      <if test="unemploy != null">
+        Unemploy,
+      </if>
+      <if test="debt != null">
+        Debt,
+      </if>
+      <if test="other != null">
+        Other,
+      </if>
+      <if test="studentSign != null">
+        StudentSign,
+      </if>
+      <if test="parentSign != null">
+        ParentSign,
+      </if>
+      <if test="parentDate != null">
+        ParentDate,
+      </if>
+      <if test="agentSign != null">
+        AgentSign,
+      </if>
+      <if test="agentUnit != null">
+        AgentUnit,
+      </if>
+      <if test="agentTel != null">
+        AgentTel,
+      </if>
+      <if test="seal != null">
+        Seal,
+      </if>
+      <if test="agentDate != null">
+        AgentDate,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="auditor != null">
+        Auditor,
+      </if>
+      <if test="auditorTime != null">
+        AuditorTime,
+      </if>
+      <if test="returned != null">
+        Returned,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuID != null">
+        #{stuID,jdbcType=VARCHAR},
+      </if>
+      <if test="registered != null">
+        #{registered,jdbcType=VARCHAR},
+      </if>
+      <if test="personNum != null">
+        #{personNum,jdbcType=INTEGER},
+      </if>
+      <if test="homeType != null">
+        #{homeType,jdbcType=VARCHAR},
+      </if>
+      <if test="homeIncome != null">
+        #{homeIncome,jdbcType=REAL},
+      </if>
+      <if test="support != null">
+        #{support,jdbcType=VARCHAR},
+      </if>
+      <if test="accident != null">
+        #{accident,jdbcType=VARCHAR},
+      </if>
+      <if test="unemploy != null">
+        #{unemploy,jdbcType=VARCHAR},
+      </if>
+      <if test="debt != null">
+        #{debt,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSign != null">
+        #{studentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="parentSign != null">
+        #{parentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="parentDate != null">
+        #{parentDate,jdbcType=DATE},
+      </if>
+      <if test="agentSign != null">
+        #{agentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="agentUnit != null">
+        #{agentUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="agentTel != null">
+        #{agentTel,jdbcType=VARCHAR},
+      </if>
+      <if test="seal != null">
+        #{seal,jdbcType=VARCHAR},
+      </if>
+      <if test="agentDate != null">
+        #{agentDate,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditorTime != null">
+        #{auditorTime,jdbcType=DATE},
+      </if>
+      <if test="returned != null">
+        #{returned,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mr.s.entity.InquiryStudentExample" resultType="java.lang.Long">
+    select count(*) from inquiry_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inquiry_student
+    <set>
+      <if test="record.stuID != null">
+        StuID = #{record.stuID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registered != null">
+        Registered = #{record.registered,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personNum != null">
+        PersonNum = #{record.personNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.homeType != null">
+        HomeType = #{record.homeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeIncome != null">
+        HomeIncome = #{record.homeIncome,jdbcType=REAL},
+      </if>
+      <if test="record.support != null">
+        Support = #{record.support,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accident != null">
+        Accident = #{record.accident,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unemploy != null">
+        Unemploy = #{record.unemploy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debt != null">
+        Debt = #{record.debt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other != null">
+        Other = #{record.other,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentSign != null">
+        StudentSign = #{record.studentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentSign != null">
+        ParentSign = #{record.parentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentDate != null">
+        ParentDate = #{record.parentDate,jdbcType=DATE},
+      </if>
+      <if test="record.agentSign != null">
+        AgentSign = #{record.agentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentUnit != null">
+        AgentUnit = #{record.agentUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentTel != null">
+        AgentTel = #{record.agentTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seal != null">
+        Seal = #{record.seal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentDate != null">
+        AgentDate = #{record.agentDate,jdbcType=DATE},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditor != null">
+        Auditor = #{record.auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditorTime != null">
+        AuditorTime = #{record.auditorTime,jdbcType=DATE},
+      </if>
+      <if test="record.returned != null">
+        Returned = #{record.returned,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inquiry_student
+    set StuID = #{record.stuID,jdbcType=VARCHAR},
+      Registered = #{record.registered,jdbcType=VARCHAR},
+      PersonNum = #{record.personNum,jdbcType=INTEGER},
+      HomeType = #{record.homeType,jdbcType=VARCHAR},
+      HomeIncome = #{record.homeIncome,jdbcType=REAL},
+      Support = #{record.support,jdbcType=VARCHAR},
+      Accident = #{record.accident,jdbcType=VARCHAR},
+      Unemploy = #{record.unemploy,jdbcType=VARCHAR},
+      Debt = #{record.debt,jdbcType=VARCHAR},
+      Other = #{record.other,jdbcType=VARCHAR},
+      StudentSign = #{record.studentSign,jdbcType=VARCHAR},
+      ParentSign = #{record.parentSign,jdbcType=VARCHAR},
+      ParentDate = #{record.parentDate,jdbcType=DATE},
+      AgentSign = #{record.agentSign,jdbcType=VARCHAR},
+      AgentUnit = #{record.agentUnit,jdbcType=VARCHAR},
+      AgentTel = #{record.agentTel,jdbcType=VARCHAR},
+      Seal = #{record.seal,jdbcType=VARCHAR},
+      AgentDate = #{record.agentDate,jdbcType=DATE},
+      Status = #{record.status,jdbcType=VARCHAR},
+      Auditor = #{record.auditor,jdbcType=VARCHAR},
+      AuditorTime = #{record.auditorTime,jdbcType=DATE},
+      Returned = #{record.returned,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mr.s.entity.InquiryStudent">
+    update inquiry_student
+    <set>
+      <if test="registered != null">
+        Registered = #{registered,jdbcType=VARCHAR},
+      </if>
+      <if test="personNum != null">
+        PersonNum = #{personNum,jdbcType=INTEGER},
+      </if>
+      <if test="homeType != null">
+        HomeType = #{homeType,jdbcType=VARCHAR},
+      </if>
+      <if test="homeIncome != null">
+        HomeIncome = #{homeIncome,jdbcType=REAL},
+      </if>
+      <if test="support != null">
+        Support = #{support,jdbcType=VARCHAR},
+      </if>
+      <if test="accident != null">
+        Accident = #{accident,jdbcType=VARCHAR},
+      </if>
+      <if test="unemploy != null">
+        Unemploy = #{unemploy,jdbcType=VARCHAR},
+      </if>
+      <if test="debt != null">
+        Debt = #{debt,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        Other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="studentSign != null">
+        StudentSign = #{studentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="parentSign != null">
+        ParentSign = #{parentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="parentDate != null">
+        ParentDate = #{parentDate,jdbcType=DATE},
+      </if>
+      <if test="agentSign != null">
+        AgentSign = #{agentSign,jdbcType=VARCHAR},
+      </if>
+      <if test="agentUnit != null">
+        AgentUnit = #{agentUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="agentTel != null">
+        AgentTel = #{agentTel,jdbcType=VARCHAR},
+      </if>
+      <if test="seal != null">
+        Seal = #{seal,jdbcType=VARCHAR},
+      </if>
+      <if test="agentDate != null">
+        AgentDate = #{agentDate,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="auditor != null">
+        Auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditorTime != null">
+        AuditorTime = #{auditorTime,jdbcType=DATE},
+      </if>
+      <if test="returned != null">
+        Returned = #{returned,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where StuID = #{stuID,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mr.s.entity.InquiryStudent">
+    update inquiry_student
+    set Registered = #{registered,jdbcType=VARCHAR},
+      PersonNum = #{personNum,jdbcType=INTEGER},
+      HomeType = #{homeType,jdbcType=VARCHAR},
+      HomeIncome = #{homeIncome,jdbcType=REAL},
+      Support = #{support,jdbcType=VARCHAR},
+      Accident = #{accident,jdbcType=VARCHAR},
+      Unemploy = #{unemploy,jdbcType=VARCHAR},
+      Debt = #{debt,jdbcType=VARCHAR},
+      Other = #{other,jdbcType=VARCHAR},
+      StudentSign = #{studentSign,jdbcType=VARCHAR},
+      ParentSign = #{parentSign,jdbcType=VARCHAR},
+      ParentDate = #{parentDate,jdbcType=DATE},
+      AgentSign = #{agentSign,jdbcType=VARCHAR},
+      AgentUnit = #{agentUnit,jdbcType=VARCHAR},
+      AgentTel = #{agentTel,jdbcType=VARCHAR},
+      Seal = #{seal,jdbcType=VARCHAR},
+      AgentDate = #{agentDate,jdbcType=DATE},
+      Status = #{status,jdbcType=VARCHAR},
+      Auditor = #{auditor,jdbcType=VARCHAR},
+      AuditorTime = #{auditorTime,jdbcType=DATE},
+      Returned = #{returned,jdbcType=VARCHAR}
+    where StuID = #{stuID,jdbcType=VARCHAR}
+  </update>
+</mapper>

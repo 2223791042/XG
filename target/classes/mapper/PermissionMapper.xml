@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mr.s.dao.PermissionMapper">
+  <resultMap id="BaseResultMap" type="mr.s.entity.Permission">
+    <id column="PermissionId" jdbcType="BIGINT" property="permissionId" />
+    <result column="PermissionName" jdbcType="VARCHAR" property="permissionName" />
+    <result column="PermissionDesc" jdbcType="VARCHAR" property="permissionDesc" />
+    <result column="PermissionCode" jdbcType="VARCHAR" property="permissionCode" />
+    <result column="PermissionType" jdbcType="VARCHAR" property="permissionType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PermissionId, PermissionName, PermissionDesc, PermissionCode, PermissionType
+  </sql>
+  <select id="selectByExample" parameterType="mr.s.entity.PermissionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from permission
+    where PermissionId = #{permissionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from permission
+    where PermissionId = #{permissionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="mr.s.entity.PermissionExample">
+    delete from permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mr.s.entity.Permission">
+    insert into permission (PermissionId, PermissionName, PermissionDesc, 
+      PermissionCode, PermissionType)
+    values (#{permissionId,jdbcType=BIGINT}, #{permissionName,jdbcType=VARCHAR}, #{permissionDesc,jdbcType=VARCHAR}, 
+      #{permissionCode,jdbcType=VARCHAR}, #{permissionType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="mr.s.entity.Permission">
+    insert into permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="permissionId != null">
+        PermissionId,
+      </if>
+      <if test="permissionName != null">
+        PermissionName,
+      </if>
+      <if test="permissionDesc != null">
+        PermissionDesc,
+      </if>
+      <if test="permissionCode != null">
+        PermissionCode,
+      </if>
+      <if test="permissionType != null">
+        PermissionType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=BIGINT},
+      </if>
+      <if test="permissionName != null">
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDesc != null">
+        #{permissionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionCode != null">
+        #{permissionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null">
+        #{permissionType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mr.s.entity.PermissionExample" resultType="java.lang.Long">
+    select count(*) from permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update permission
+    <set>
+      <if test="record.permissionId != null">
+        PermissionId = #{record.permissionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.permissionName != null">
+        PermissionName = #{record.permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionDesc != null">
+        PermissionDesc = #{record.permissionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionCode != null">
+        PermissionCode = #{record.permissionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionType != null">
+        PermissionType = #{record.permissionType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update permission
+    set PermissionId = #{record.permissionId,jdbcType=BIGINT},
+      PermissionName = #{record.permissionName,jdbcType=VARCHAR},
+      PermissionDesc = #{record.permissionDesc,jdbcType=VARCHAR},
+      PermissionCode = #{record.permissionCode,jdbcType=VARCHAR},
+      PermissionType = #{record.permissionType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mr.s.entity.Permission">
+    update permission
+    <set>
+      <if test="permissionName != null">
+        PermissionName = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDesc != null">
+        PermissionDesc = #{permissionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionCode != null">
+        PermissionCode = #{permissionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null">
+        PermissionType = #{permissionType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PermissionId = #{permissionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mr.s.entity.Permission">
+    update permission
+    set PermissionName = #{permissionName,jdbcType=VARCHAR},
+      PermissionDesc = #{permissionDesc,jdbcType=VARCHAR},
+      PermissionCode = #{permissionCode,jdbcType=VARCHAR},
+      PermissionType = #{permissionType,jdbcType=VARCHAR}
+    where PermissionId = #{permissionId,jdbcType=BIGINT}
+  </update>
+</mapper>

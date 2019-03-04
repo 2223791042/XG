@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mr.s.dao.InquiryHomeMapper">
+  <resultMap id="BaseResultMap" type="mr.s.entity.InquiryHome">
+    <id column="InquiryID" jdbcType="BIGINT" property="inquiryID" />
+    <result column="StuID" jdbcType="VARCHAR" property="stuID" />
+    <result column="FamilyName" jdbcType="VARCHAR" property="familyName" />
+    <result column="Age" jdbcType="INTEGER" property="age" />
+    <result column="Nation" jdbcType="VARCHAR" property="nation" />
+    <result column="Relation" jdbcType="VARCHAR" property="relation" />
+    <result column="WorkPlace" jdbcType="VARCHAR" property="workPlace" />
+    <result column="Occupation" jdbcType="VARCHAR" property="occupation" />
+    <result column="Income" jdbcType="REAL" property="income" />
+    <result column="BodyStatus" jdbcType="VARCHAR" property="bodyStatus" />
+    <result column="CertID" jdbcType="VARCHAR" property="certID" />
+    <result column="MonthIncome" jdbcType="REAL" property="monthIncome" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    InquiryID, StuID, FamilyName, Age, Nation, Relation, WorkPlace, Occupation, Income, 
+    BodyStatus, CertID, MonthIncome
+  </sql>
+  <select id="selectByExample" parameterType="mr.s.entity.InquiryHomeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inquiry_home
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inquiry_home
+    where InquiryID = #{inquiryID,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from inquiry_home
+    where InquiryID = #{inquiryID,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="mr.s.entity.InquiryHomeExample">
+    delete from inquiry_home
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mr.s.entity.InquiryHome">
+    insert into inquiry_home (InquiryID, StuID, FamilyName, 
+      Age, Nation, Relation, 
+      WorkPlace, Occupation, Income, 
+      BodyStatus, CertID, MonthIncome
+      )
+    values (#{inquiryID,jdbcType=BIGINT}, #{stuID,jdbcType=VARCHAR}, #{familyName,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{nation,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, 
+      #{workPlace,jdbcType=VARCHAR}, #{occupation,jdbcType=VARCHAR}, #{income,jdbcType=REAL}, 
+      #{bodyStatus,jdbcType=VARCHAR}, #{certID,jdbcType=VARCHAR}, #{monthIncome,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mr.s.entity.InquiryHome">
+    insert into inquiry_home
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inquiryID != null">
+        InquiryID,
+      </if>
+      <if test="stuID != null">
+        StuID,
+      </if>
+      <if test="familyName != null">
+        FamilyName,
+      </if>
+      <if test="age != null">
+        Age,
+      </if>
+      <if test="nation != null">
+        Nation,
+      </if>
+      <if test="relation != null">
+        Relation,
+      </if>
+      <if test="workPlace != null">
+        WorkPlace,
+      </if>
+      <if test="occupation != null">
+        Occupation,
+      </if>
+      <if test="income != null">
+        Income,
+      </if>
+      <if test="bodyStatus != null">
+        BodyStatus,
+      </if>
+      <if test="certID != null">
+        CertID,
+      </if>
+      <if test="monthIncome != null">
+        MonthIncome,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inquiryID != null">
+        #{inquiryID,jdbcType=BIGINT},
+      </if>
+      <if test="stuID != null">
+        #{stuID,jdbcType=VARCHAR},
+      </if>
+      <if test="familyName != null">
+        #{familyName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="workPlace != null">
+        #{workPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null">
+        #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null">
+        #{income,jdbcType=REAL},
+      </if>
+      <if test="bodyStatus != null">
+        #{bodyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="certID != null">
+        #{certID,jdbcType=VARCHAR},
+      </if>
+      <if test="monthIncome != null">
+        #{monthIncome,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mr.s.entity.InquiryHomeExample" resultType="java.lang.Long">
+    select count(*) from inquiry_home
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inquiry_home
+    <set>
+      <if test="record.inquiryID != null">
+        InquiryID = #{record.inquiryID,jdbcType=BIGINT},
+      </if>
+      <if test="record.stuID != null">
+        StuID = #{record.stuID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyName != null">
+        FamilyName = #{record.familyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        Age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.nation != null">
+        Nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relation != null">
+        Relation = #{record.relation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workPlace != null">
+        WorkPlace = #{record.workPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.occupation != null">
+        Occupation = #{record.occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.income != null">
+        Income = #{record.income,jdbcType=REAL},
+      </if>
+      <if test="record.bodyStatus != null">
+        BodyStatus = #{record.bodyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certID != null">
+        CertID = #{record.certID,jdbcType=VARCHAR},
+      </if>
+      <if test="record.monthIncome != null">
+        MonthIncome = #{record.monthIncome,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inquiry_home
+    set InquiryID = #{record.inquiryID,jdbcType=BIGINT},
+      StuID = #{record.stuID,jdbcType=VARCHAR},
+      FamilyName = #{record.familyName,jdbcType=VARCHAR},
+      Age = #{record.age,jdbcType=INTEGER},
+      Nation = #{record.nation,jdbcType=VARCHAR},
+      Relation = #{record.relation,jdbcType=VARCHAR},
+      WorkPlace = #{record.workPlace,jdbcType=VARCHAR},
+      Occupation = #{record.occupation,jdbcType=VARCHAR},
+      Income = #{record.income,jdbcType=REAL},
+      BodyStatus = #{record.bodyStatus,jdbcType=VARCHAR},
+      CertID = #{record.certID,jdbcType=VARCHAR},
+      MonthIncome = #{record.monthIncome,jdbcType=REAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mr.s.entity.InquiryHome">
+    update inquiry_home
+    <set>
+      <if test="stuID != null">
+        StuID = #{stuID,jdbcType=VARCHAR},
+      </if>
+      <if test="familyName != null">
+        FamilyName = #{familyName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        Age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="nation != null">
+        Nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        Relation = #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="workPlace != null">
+        WorkPlace = #{workPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="occupation != null">
+        Occupation = #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="income != null">
+        Income = #{income,jdbcType=REAL},
+      </if>
+      <if test="bodyStatus != null">
+        BodyStatus = #{bodyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="certID != null">
+        CertID = #{certID,jdbcType=VARCHAR},
+      </if>
+      <if test="monthIncome != null">
+        MonthIncome = #{monthIncome,jdbcType=REAL},
+      </if>
+    </set>
+    where InquiryID = #{inquiryID,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mr.s.entity.InquiryHome">
+    update inquiry_home
+    set StuID = #{stuID,jdbcType=VARCHAR},
+      FamilyName = #{familyName,jdbcType=VARCHAR},
+      Age = #{age,jdbcType=INTEGER},
+      Nation = #{nation,jdbcType=VARCHAR},
+      Relation = #{relation,jdbcType=VARCHAR},
+      WorkPlace = #{workPlace,jdbcType=VARCHAR},
+      Occupation = #{occupation,jdbcType=VARCHAR},
+      Income = #{income,jdbcType=REAL},
+      BodyStatus = #{bodyStatus,jdbcType=VARCHAR},
+      CertID = #{certID,jdbcType=VARCHAR},
+      MonthIncome = #{monthIncome,jdbcType=REAL}
+    where InquiryID = #{inquiryID,jdbcType=BIGINT}
+  </update>
+</mapper>
