@@ -50,17 +50,28 @@ public class TeacherController {
         return "teacher/password";
     }
 
+    /**
+     * 教师密码修改
+     * @param originalPassword
+     * @param password
+     * @param httpSession
+     * @return
+     */
     @ResponseBody
     @RequiresPermissions("teacherPersonal:manage")
     @RequestMapping(value = "/password", method = RequestMethod.PUT)
     public ResultVO password(String originalPassword, String password, HttpSession httpSession){
         String userName = SecurityUtils.getSubject().getPrincipal().toString();
         String userType = (String)httpSession.getAttribute("userType");
-        PasswordEnum passwordEnum = userService.editPassword(userName, userType, originalPassword, password);
-        if(passwordEnum.equals(PasswordEnum.SUCCESS)){
-            return ResultVOUtil.success(passwordEnum.getMessage());
+        try{
+            PasswordEnum passwordEnum = userService.editPassword(userName, userType, originalPassword, password);
+            if(passwordEnum.equals(PasswordEnum.SUCCESS)){
+                return ResultVOUtil.success(passwordEnum.getMessage());
+            }
+            return ResultVOUtil.fail(passwordEnum.getMessage());
+        }catch (Exception e){
+            return ResultVOUtil.fail("修改密码失败!");
         }
-        return ResultVOUtil.fail(passwordEnum.getMessage());
     }
 
     /**
