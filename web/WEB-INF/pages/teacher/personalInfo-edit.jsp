@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/kindeditor/themes/default/default.css" type="text/css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/static/kindeditor/kindeditor-all-min.js"></script>
     <script src="${pageContext.request.contextPath}/static/kindeditor/lang/zh-CN.js"></script>
-    <title>教师注册</title>
+    <title>教师个人信息编辑</title>
     <style>
         .ke-container.ke-container-default{
             width: 98%!important;

@@ -36,6 +36,15 @@ public class StudentController {
     @Autowired
     private MenuService menuService;
 
+    @RequiresPermissions("studentPersonal:manage")
+    @RequestMapping(value = "/personalInfo", method = RequestMethod.GET)
+    public String personalInfo(Model model){
+        String stuID = SecurityUtils.getSubject().getPrincipal().toString();
+        Student student = studentService.getStudent(stuID);
+        model.addAttribute("student", student);
+        return "student/personalInfo-edit";
+    }
+
     @RequiresPermissions("student:index")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(HttpSession httpSession, Model model){
