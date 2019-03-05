@@ -35,9 +35,9 @@
             <legend style="text-align: center;">个人信息</legend>
         </fieldset>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="teacherID">职工号</label>
+            <label class="layui-form-label">职工号</label>
             <div class="layui-input-inline">
-                <input type="text" name="teacherID" value="${teacher.teacherID}" readonly id="teacherID" lay-verify="required"  autocomplete="off" class="layui-input">
+                <input type="text" value="${teacher.teacherID}" readonly autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label" for="teaName">职工姓名</label>
             <div class="layui-input-inline">

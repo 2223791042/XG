@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class TeacherPersonalInfoForm {
-    @NotBlank(message = "职工号不能为空")
     private String teacherID;
 
     @NotBlank(message = "姓名不能为空")

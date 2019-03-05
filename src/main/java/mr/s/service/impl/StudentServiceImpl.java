@@ -9,6 +9,7 @@ import mr.s.entity.Student;
 import mr.s.entity.User;
 import mr.s.entity.UserRole;
 import mr.s.enums.RoleEnum;
+import mr.s.form.StudentPersonalInfoForm;
 import mr.s.form.StudentRegisterForm;
 import mr.s.service.StudentService;
 import mr.s.utils.PasswordUtil;
@@ -53,4 +54,10 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.insertSelective(student);
     }
 
+    @Transactional
+    public void editPersonalInfo(StudentPersonalInfoForm studentPersonalInfoForm) {
+        Student student = new Student();
+        BeanUtils.copyProperties(studentPersonalInfoForm, student);
+        studentMapper.updateByPrimaryKeySelective(student);
+    }
 }

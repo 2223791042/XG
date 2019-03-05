@@ -44,7 +44,7 @@ public class TeacherController {
 
     @RequiresPermissions("teacherPersonal:manage")
     @RequestMapping(value = "/password", method = RequestMethod.GET)
-    public String password(Model model, HttpSession httpSession){
+    public String password(Model model){
         String userName = SecurityUtils.getSubject().getPrincipal().toString();
         model.addAttribute("teacherID", userName);
         return "teacher/password";
